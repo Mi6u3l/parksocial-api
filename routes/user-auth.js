@@ -11,8 +11,11 @@ const bcrypt = require('bcrypt');
 const bcryptSalt = 10;
 
 router.post('/signup', (req, res, next) => {
+  let firstname = req.body.firstname;  
+  let lastname = req.body.lastname;  
   let username = req.body.username;
   let password = req.body.password;
+  let email = req.body.email;
 
   if (!username || !password) {
     res.status(400).json({ message: 'Provide username and password' });
@@ -29,6 +32,9 @@ router.post('/signup', (req, res, next) => {
     let hashPass = bcrypt.hashSync(password, salt);
 
     const theUser = new User({
+      firstname,
+      lastname,
+      email,
       username,
       password: hashPass
     });
