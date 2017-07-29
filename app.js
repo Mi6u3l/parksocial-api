@@ -5,13 +5,13 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const passport = require('./config/passport');
+
 // database connection
 require('./config/database');
 
 const app = express();
 
 app.use(cors());
-
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

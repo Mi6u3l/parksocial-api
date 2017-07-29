@@ -4,6 +4,6 @@ const ExtractJwt  = passportJwt.ExtractJwt;
 let jwtOptions = {};
 
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeader();
-jwtOptions.secretOrKey = '1r0nhack';
+jwtOptions.secretOrKey = 'p@rks0cial';
 
 module.exports = jwtOptions;
