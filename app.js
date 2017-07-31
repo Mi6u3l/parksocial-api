@@ -7,6 +7,7 @@ const cors = require('cors');
 const passport = require('./config/passport');
 
 var userAuth = require('./routes/user-auth');
+var parkingSpots = require('./routes/parking-spot');
 
 // database connection
 require('./config/database');
@@ -22,6 +23,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/', userAuth);
+app.use('/api',  passport.authenticate('jwt', {session: false}), parkingSpots);
+
 
 
 // catch 404 and forward to error handler
