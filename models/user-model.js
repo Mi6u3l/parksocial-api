@@ -23,6 +23,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'The password is required']
   },
+  picture: { 
+    type: String,
+    required: [true, 'The picture is required']
+   },
 },
 {
   timestamps: {

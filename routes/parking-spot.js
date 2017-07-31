@@ -27,4 +27,17 @@ router.post('/parkingspots', (req, res, next) => {
   });
 });
 
+router.get('/parkingspots', (req, res, next) => {
+  ParkingSpot.find((err, parkingspotsList) => {
+    if (err) {
+      res.json(err);
+      console.log(err);
+      return;
+    }
+    console.log(parkingspotsList);
+    res.json(parkingspotsList);
+  });
+});
+
+
 module.exports = router;

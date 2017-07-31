@@ -25,8 +25,7 @@ const parkingSpot = new mongoose.Schema({
     required: [true, 'The user id is required']
   },
   userunreportedid: { 
-     type: Schema.Types.ObjectId, ref: 'User',
-      required: [false, 'The user id is required']
+     type: Schema.Types.ObjectId, ref: 'User'
   },
  },
 {
