@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
   },
   picture: { 
     type: String,
-    required: [true, 'The picture is required']
+    required: [false, 'The picture is required']
    },
 },
 {

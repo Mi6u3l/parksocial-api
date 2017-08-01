@@ -50,6 +50,7 @@ router.post('/signup', (req, res, next) => {
     console.log(theUser);
     theUser.save((err, user) => {
       if (err) {
+        console.log(err);
         res.status(400).json({
           message: err
         });
