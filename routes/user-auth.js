@@ -17,7 +17,7 @@ router.post('/signup', (req, res, next) => {
   let username = req.body.username;
   let password = req.body.password;
   let email = req.body.email;
-  let picture = '';
+  let picture = req.body.picture;
   
   if (!username || !password) {
     res.status(400).json({
