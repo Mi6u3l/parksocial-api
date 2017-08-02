@@ -29,9 +29,32 @@ router.post('/parkingspots', (req, res, next) => {
   });
 });
 
+
+router.put('/parkingspots/:id', (req, res) => {
+  if(!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    res.status(400).json({ message: 'Specified id is not valid' });
+    return;
+  }
+
+  const updates = {
+    userunreportedid: req.body._id,
+  };
+  console.log(req.body);
+  ParkingSpot.findByIdAndUpdate(req.params.id, updates, (err) => {
+    if (err) {
+      res.json(err);
+      return;
+    }
+
+    res.json({
+      message: 'Parking spot updated successfully'
+    });
+  });
+});
+
 router.get('/parkingspots', (req, res, next) => {
   let parkingSpotsUsersList = [];
-  ParkingSpot.find((err, parkingspotsList) => {
+  ParkingSpot.find({ userunreportedid: { $eq: null } }, (err, parkingspotsList) => {
     //TODO change to order from the database instead.
  // ParkingSpot.find({}, null, {sort: {created_at: -1}}, (err, parkingspotsList) => {
     if (err) {
