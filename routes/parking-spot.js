@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
+const axios = require("axios");
 
 const ParkingSpot = require('../models/parkingspot-model');
+const User = require('../models/user-model');
 
 router.post('/parkingspots', (req, res, next) => {
   console.log('entered');
@@ -28,16 +30,30 @@ router.post('/parkingspots', (req, res, next) => {
 });
 
 router.get('/parkingspots', (req, res, next) => {
+  let parkingSpotsUsersList = [];
   ParkingSpot.find((err, parkingspotsList) => {
     if (err) {
       res.json(err);
       console.log(err);
       return;
     }
-    console.log(parkingspotsList);
-    res.json(parkingspotsList);
+    let promises = [];
+    parkingspotsList.forEach((parkingSpot) => {
+      promises.push(
+        User.findById(parkingSpot.userreportedid, (err, user) => {   
+          let parkingSpotsUsers = {};
+          parkingSpotsUsers.user = user;
+          parkingSpotsUsers.parkingSpot = parkingSpot; 
+          parkingSpotsUsersList.push(parkingSpotsUsers);
+        })
+        );
+    });
+
+    axios.all(promises).then(() => {
+      console.log(parkingSpotsUsersList);
+      res.json(parkingSpotsUsersList);
+    });
   });
 });
-
 
 module.exports = router;
