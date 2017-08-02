@@ -31,7 +31,8 @@ router.post('/parkingspots', (req, res, next) => {
 
 router.get('/parkingspots', (req, res, next) => {
   let parkingSpotsUsersList = [];
-  ParkingSpot.find({}, null, {sort: {created_at: -1}}, (err, docs) => {
+  ParkingSpot.find((err, parkingspotsList) => {
+  //ParkingSpot.find({}, null, {sort: {created_at: -1}}, (err, docs) => {
     if (err) {
       res.json(err);
       console.log(err);
