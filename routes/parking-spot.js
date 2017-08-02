@@ -31,8 +31,9 @@ router.post('/parkingspots', (req, res, next) => {
 
 router.get('/parkingspots', (req, res, next) => {
   let parkingSpotsUsersList = [];
-  //ParkingSpot.find((err, parkingspotsList) => {
-  ParkingSpot.find({}, null, {sort: {created_at: -1}}, (err, parkingspotsList) => {
+  ParkingSpot.find((err, parkingspotsList) => {
+    //TODO change to order from the database instead.
+ // ParkingSpot.find({}, null, {sort: {created_at: -1}}, (err, parkingspotsList) => {
     if (err) {
       res.json(err);
       console.log(err);
@@ -53,7 +54,7 @@ router.get('/parkingspots', (req, res, next) => {
     axios.all(promises).then(() => {
       console.log(parkingSpotsUsersList);
       res.json(parkingSpotsUsersList.sort(function(a, b) {
-          return Date.parse(a.parkingSpot.created_at) > Date.parse(b.parkingSpot.created_at);
+          return Date.parse(a.parkingSpot.created_at) < Date.parse(b.parkingSpot.created_at);
           }));
     });
   });
