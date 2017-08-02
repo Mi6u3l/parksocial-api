@@ -52,7 +52,9 @@ router.get('/parkingspots', (req, res, next) => {
 
     axios.all(promises).then(() => {
       console.log(parkingSpotsUsersList);
-      res.json(parkingSpotsUsersList);
+      res.json(parkingSpotsUsersList.sort(function(a, b) {
+          return Date.parse(a.parkingSpot.created_at) > Date.parse(b.parkingSpot.created_at);
+          }));
     });
   });
 });
