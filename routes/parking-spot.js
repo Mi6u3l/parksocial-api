@@ -54,11 +54,20 @@ router.put('/parkingspots/:id', (req, res) => {
   });
 });
 
+router.get('/parkingspot/:userid', (req, res, next) => {
+  ParkingSpot.find({userreportedid : req.params.userid }, null, (err, parkingSpot) => {
+    if (err) {
+      res.json(err);
+      console.log(err);
+      return;
+    }
+      res.json(parkingSpot);
+  });
+});
+
 router.get('/parkingspots', (req, res, next) => {
   let parkingSpotsUsersList = [];
-  ParkingSpot.find({ userunreportedid: { $eq: null } }, (err, parkingspotsList) => {
-    //TODO change to order from the database instead.
- // ParkingSpot.find({}, null, {sort: {created_at: -1}}, (err, parkingspotsList) => {
+  ParkingSpot.find({}, null, {sort: {created_at: -1}}, (err, parkingspotsList) => {
     if (err) {
       res.json(err);
       console.log(err);
@@ -77,10 +86,7 @@ router.get('/parkingspots', (req, res, next) => {
     });
 
     axios.all(promises).then(() => {
-      console.log(parkingSpotsUsersList);
-      res.json(parkingSpotsUsersList.sort(function(a, b) {
-          return Date.parse(a.parkingSpot.created_at) < Date.parse(b.parkingSpot.created_at);
-          }));
+      res.json(parkingSpotsUsersList);
     });
   });
 });
