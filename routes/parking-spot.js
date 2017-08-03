@@ -38,6 +38,8 @@ router.put('/parkingspots/:id', (req, res) => {
 
   const updates = {
     userunreportedid: req.body._id,
+    valid: req.body.valid
+
   };
   console.log(req.body);
   ParkingSpot.findByIdAndUpdate(req.params.id, updates, (err) => {
