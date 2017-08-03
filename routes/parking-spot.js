@@ -54,6 +54,23 @@ router.put('/parkingspots/:id', (req, res) => {
   });
 });
 
+router.put('/parkingspot/:parkingspotid', (req, res, next) => {
+  console.log('freeing')
+  const updates = {
+    userunreportedid: null,
+    userreportedid: req.body._id
+  };
+
+  ParkingSpot.findByIdAndUpdate({ _id : req.params.parkingspotid }, updates, (err, parkingSpot) => {
+    if (err) {
+      res.json(err);
+      console.log('problem',err);
+      return;
+    }
+      res.json(parkingSpot);
+  });
+});
+
 router.get('/parkingspot/:userid', (req, res, next) => {
   ParkingSpot.find({userreportedid : req.params.userid }, null, (err, parkingSpot) => {
     if (err) {
@@ -67,7 +84,7 @@ router.get('/parkingspot/:userid', (req, res, next) => {
 
 router.get('/parkingspots', (req, res, next) => {
   let parkingSpotsUsersList = [];
-  ParkingSpot.find({}, null, {sort: {created_at: -1}}, (err, parkingspotsList) => {
+  ParkingSpot.find({ userunreportedid: { $eq: null }}, null, {sort: {created_at: -1}}, (err, parkingspotsList) => {
     if (err) {
       res.json(err);
       console.log(err);
