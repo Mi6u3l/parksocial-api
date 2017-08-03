@@ -72,7 +72,7 @@ router.put('/parkingspot/:parkingspotid', (req, res, next) => {
 });
 
 router.get('/parkingspot/:userid', (req, res, next) => {
-  ParkingSpot.find({userreportedid : req.params.userid }, null, (err, parkingSpot) => {
+  ParkingSpot.find({userunreportedid : req.params.userid }, null, (err, parkingSpot) => {
     if (err) {
       res.json(err);
       console.log(err);
