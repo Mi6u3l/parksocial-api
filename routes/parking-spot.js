@@ -47,11 +47,19 @@ router.post('/parkingspots', (req, res, next) => {
               return;
             }
             console.log(user.email);
-            let content = new helper.Content('text/plain', `There is new parking spot at ${notification.address} waiting for you!.`);
-            console.log('email', user.email);
-            let toEmail = new helper.Email(user.email);
-            let notify = new Notify(content, toEmail);
-            notify.sendEmail();
+            //let content = new helper.Content('text/plain', `There is new parking spot at ${notification.address} waiting for you!`);
+            //console.log('email', user.email);
+            //let toEmail = new helper.Email(user.email);
+            //let notify = new Notify(content, toEmail);
+            //notify.sendEmail();
+            var sendNotification = require('gmail-send')({
+              user: 'ironparksocial@gmail.com',
+              pass: 'aFa01JKV!',
+              to:   user.email,
+              subject: 'Park Social Notifications',
+              text:    `There is new parking spot at ${notification.address} waiting for you!`,
+            });
+            sendNotification();
           });
 
         }

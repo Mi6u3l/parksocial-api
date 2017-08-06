@@ -2,7 +2,7 @@ require("dotenv").config();
 const helper = require('sendgrid').mail;
 
 function Notify(content, toEmail) {
-    this.fromEmail = new helper.Email('parksocial@example.com');
+    this.fromEmail = new helper.Email('admin@parksocial.com');
     this.subject = 'Park Social Notifications';
     this.content = content;
     this.toEmail = toEmail;
