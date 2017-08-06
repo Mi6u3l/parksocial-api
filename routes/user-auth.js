@@ -99,10 +99,9 @@ router.post('/login', (req, res, next) => {
       } else {
         const payload = {
           id: user._id,
-          user: user.username
+          user: user.username,
         };
         const token = jwt.sign(payload, jwtOptions.secretOrKey);
-        console.log('user id', user._id);
         res.status(200).json({
           token,
           user

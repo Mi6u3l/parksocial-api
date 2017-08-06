@@ -8,6 +8,7 @@ const passport = require('./config/passport');
 
 var userAuth = require('./routes/user-auth');
 var parkingSpots = require('./routes/parking-spot');
+var notifications = require('./routes/notification.js');
 
 // database connection
 require('./config/database');
@@ -24,6 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', userAuth);
 app.use('/api',  passport.authenticate('jwt', {session: false}), parkingSpots);
+app.use('/api',  passport.authenticate('jwt', {session: false}), notifications);
 
 
 
