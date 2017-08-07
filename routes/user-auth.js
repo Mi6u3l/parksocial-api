@@ -18,8 +18,9 @@ router.post('/signup', (req, res, next) => {
   let password = req.body.password;
   let email = req.body.email;
   let picture = req.body.picture;
+  let facebook = req.body.facebook;
   
-  if (!username || !password) {
+  if (!username || (!facebook && !password)) {
     res.status(400).json({
       message: 'Provide username and password'
     });
@@ -46,6 +47,7 @@ router.post('/signup', (req, res, next) => {
       username,
       password: hashPass,
       picture,
+      facebook
     });
     console.log(theUser);
     theUser.save((err, user) => {
