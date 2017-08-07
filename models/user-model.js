@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [false, 'The picture is required']
    },
-  isFacebook: { 
+  facebook: { 
     type: Boolean
    },
 },
