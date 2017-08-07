@@ -30,11 +30,22 @@ router.post('/signup', (req, res, next) => {
   User.findOne({
     username
   }, '_id', (err, foundUser) => {
-    if (foundUser) {
+    if (foundUser && !foundUser.facebook) {
       res.status(400).json({
         message: 'The username already exists'
       });
       return;
+    } else if (foundUser && foundUser.facebook) {
+       const payload = {
+          id: foundUser._id,
+          user: foundUser.username
+        };
+        const token = jwt.sign(payload, jwtOptions.secretOrKey);
+        res.status(200).json({
+          token,
+          foundUser
+        });
+        return;
     }
 
     const theUser = new User({
