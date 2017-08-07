@@ -79,6 +79,22 @@ router.post('/signup', (req, res, next) => {
 router.post('/login', (req, res, next) => {
   let username = req.body.username;
   let password = req.body.password;
+  let facebook = req.body.facebook;
+
+   if (facebook) {
+      User.findOne({'username': username}, (err, user) => {
+      const payload = {
+          id: user._id,
+          user: user.username,
+      };
+      const token = jwt.sign(payload, jwtOptions.secretOrKey);
+        res.status(200).json({
+          token,
+          user
+        });
+      });
+    return;
+  }
 
   if (!username || !password) {
     res.status(401).json({
