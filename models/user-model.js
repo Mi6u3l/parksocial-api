@@ -21,11 +21,13 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, 'The password is required']
   },
   picture: { 
     type: String,
     required: [false, 'The picture is required']
+   },
+  isFacebook: { 
+    type: Boolean
    },
 },
 {

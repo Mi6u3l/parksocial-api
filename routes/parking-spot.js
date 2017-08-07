@@ -78,11 +78,16 @@ router.put('/parkingspots/:id', (req, res) => {
     return;
   }
 
+  let userid = req.body._id;
+  if (req.body.valid === false) {
+     userid = null;
+  }
+ 
   const updates = {
-    userunreportedid: req.body._id,
+    userunreportedid: userid,
     valid: req.body.valid
-
   };
+
   console.log(req.body);
   ParkingSpot.findByIdAndUpdate(req.params.id, updates, (err) => {
     if (err) {
@@ -133,10 +138,10 @@ router.get('/parkingspot/:userid', (req, res, next) => {
 router.get('/parkingspots', (req, res, next) => {
   let parkingSpotsUsersList = [];
   ParkingSpot.find({
-    userunreportedid: {
-      $eq: null
-    }
-  }, null, {
+    $and: [
+    { userunreportedid: { $eq: null, } },
+    { valid: { $ne: false, } }
+    ]}, null, {
     sort: {
       created_at: -1
     }
