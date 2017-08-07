@@ -29,7 +29,7 @@ router.post('/signup', (req, res, next) => {
 
   User.findOne({
     username
-  }, '_id', (err, foundUser) => {
+  }, (err, foundUser) => {
     if (foundUser && !facebook) {
       res.status(400).json({
         message: 'The username already exists'
