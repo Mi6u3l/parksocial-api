@@ -37,18 +37,22 @@ router.post('/signup', (req, res, next) => {
       return;
     }
 
-    let salt = bcrypt.genSaltSync(bcryptSalt);
-    let hashPass = bcrypt.hashSync(password, salt);
-
     const theUser = new User({
       firstname,
       lastname,
       email,
       username,
-      password: hashPass,
       picture,
       facebook
     });
+
+    let salt = bcrypt.genSaltSync(bcryptSalt);
+    let hashPass;
+    if (password !== undefined) {
+      hashPass = bcrypt.hashSync(password, salt);
+      theUser.password = hashPass;
+    }
+
     console.log(theUser);
     theUser.save((err, user) => {
       if (err) {
