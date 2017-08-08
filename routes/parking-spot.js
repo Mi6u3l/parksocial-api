@@ -13,7 +13,7 @@ const socketIO = require('socket.io');
 //testing socket.io
 const socketServer = express()
   .use((req, res) => res.sendStatus(200))
-  .listen(process.env.WSPORT, () => console.log(`Listening on ${ process.env.WSPORT }`));
+  .listen(process.env.WSPORT, '0.0.0.0', () => console.log(`Listening on ${ process.env.WSPORT }`));
 
 const io = socketIO(socketServer);
 io.on('connection', (socket) => {
