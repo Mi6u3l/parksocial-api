@@ -9,10 +9,10 @@ const helper = require('sendgrid').mail;
 const Notify = require('../config/parksocial-sendgrid');
 const socketIO = require('socket.io');
 
+
 //testing socket.io
 const socketServer = express()
   .use((req, res) => res.sendStatus(200))
-  .use(cors())
   .listen(process.env.WSPORT, () => console.log(`Listening on ${ process.env.WSPORT }`));
 
 const io = socketIO(socketServer);
