@@ -3,9 +3,7 @@ const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
 const passport = require('./config/passport');
-
 var userAuth = require('./routes/user-auth');
 var parkingSpots = require('./routes/parking-spot');
 var notifications = require('./routes/notification.js');
@@ -14,6 +12,8 @@ var notifications = require('./routes/notification.js');
 require('./config/database');
 
 const app = express();
+
+
 
 app.use(cors());
 
@@ -24,7 +24,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', userAuth);
-app.use('/api',  passport.authenticate('jwt', {session: false}), parkingSpots);
+//app.use('/api',  passport.authenticate('jwt', {session: false}), parkingSpots);
+app.use('/api', parkingSpots);
 app.use('/api',  passport.authenticate('jwt', {session: false}), notifications);
 
 

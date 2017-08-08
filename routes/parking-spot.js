@@ -7,7 +7,20 @@ const Notification = require('../models/notifications-model');
 const User = require('../models/user-model');
 const helper = require('sendgrid').mail;
 const Notify = require('../config/parksocial-sendgrid');
+const socketIO = require('socket.io');
 
+//testing socket.io
+const socketServer = express()
+  .listen(8080, () => console.log(`Listening on ${ 8080 }`));
+
+const io = socketIO(socketServer);
+io.on('connection', (socket) => {
+  console.log('Client connected');
+  socket.on('disconnect', () => console.log('Client disconnected'));
+});
+
+
+//Create new parking spot
 router.post('/parkingspots', (req, res, next) => {
   console.log('entered');
   const spot = new ParkingSpot({
@@ -28,6 +41,9 @@ router.post('/parkingspots', (req, res, next) => {
       message: 'New Parking Spot created',
       id: spot._id
     });
+
+    //broadcast new parking spot
+    io.emit('newspot', 'new spot created');
 
     //check for notifications
     Notification.find({}, null, (err, notifications) => {
@@ -64,7 +80,7 @@ router.post('/parkingspots', (req, res, next) => {
   });
 });
 
-
+//update parking spot
 router.put('/parkingspots/:id', (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
     res.status(400).json({
@@ -94,10 +110,13 @@ router.put('/parkingspots/:id', (req, res) => {
       message: 'Parking spot updated successfully'
     });
   });
+
+  //broadcast update
+  io.emit('newspot', 'spot updated');
 });
 
+//update parking spot
 router.put('/parkingspot/:parkingspotid', (req, res, next) => {
-  console.log('freeing')
   const updates = {
     userunreportedid: null,
     userreportedid: req.body._id
@@ -113,6 +132,8 @@ router.put('/parkingspot/:parkingspotid', (req, res, next) => {
     }
     res.json(parkingSpot);
   });
+  //broadcast update
+  io.emit('newspot', 'spot updated');
 });
 
 router.get('/parkingspot/:userid', (req, res, next) => {
