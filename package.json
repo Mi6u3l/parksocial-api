@@ -10,10 +10,11 @@
     "axios": "^0.16.2",
     "bcrypt": "^1.0.2",
     "body-parser": "~1.17.1",
+    "bufferutil": "3.0.2",
     "cors": "^2.8.4",
     "debug": "~2.6.3",
     "dotenv": "^4.0.0",
-    "express": "~4.15.2",
+    "express": "4.15.4",
     "gmail-send": "^1.2.11",
     "jade": "~1.11.0",
     "jsonwebtoken": "^7.4.1",
@@ -25,7 +26,9 @@
     "passport-jwt": "^2.2.1",
     "path": "^0.12.7",
     "sendgrid": "^5.2.0",
-    "socket.io": "^2.0.3"
+    "socket.io": "^2.0.3",
+    "utf-8-validate": "3.0.3",
+    "ws": "3.1.0"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"

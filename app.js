@@ -4,16 +4,24 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('./config/passport');
-var userAuth = require('./routes/user-auth');
-var parkingSpots = require('./routes/parking-spot');
-var notifications = require('./routes/notification.js');
+
+var SocketIO = require('socket.io');
 
 // database connection
 require('./config/database');
 
 const app = express();
 
+var io = SocketIO();
+app.io = io;
 
+io.on('connection', function(socket) {
+  console.log('Client connected');
+});
+
+var parkingSpots = require('./routes/parking-spot')(io);
+var userAuth = require('./routes/user-auth');
+var notifications = require('./routes/notification.js');
 
 app.use(cors());
 
@@ -47,5 +55,6 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
 });
+
 
 module.exports = app;
