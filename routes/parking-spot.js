@@ -11,7 +11,13 @@ const socketIO = require('socket.io');
 
 //testing socket.io
 const socketServer = express()
-  .use((req, res) => res.sendStatus(200))
+  app.use(function(req, res, next) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        res.header("Access-Control-Allow-Headers", "Content-Type");
+        res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+        next();
+  })
   .listen(8080, () => console.log(`Listening on ${ 8080 }`));
 
 const io = socketIO(socketServer);
