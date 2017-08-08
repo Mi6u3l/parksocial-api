@@ -18,7 +18,7 @@ const socketServer = express()
         res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
         next();
   })
-  .listen(8080, () => console.log(`Listening on ${ 8080 }`));
+  .listen(process.env.WSPORT, () => console.log(`Listening on ${ process.env.WSPORT }`));
 
 const io = socketIO(socketServer);
 io.on('connection', (socket) => {
