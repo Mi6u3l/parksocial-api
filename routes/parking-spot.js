@@ -11,7 +11,8 @@ const socketIO = require('socket.io');
 
 //testing socket.io
 const socketServer = express()
-  .listen(8000, () => console.log(`Listening on ${ 8000 }`));
+  .use((req, res) => res.sendStatus(200))
+  .listen(8080, () => console.log(`Listening on ${ 8080 }`));
 
 const io = socketIO(socketServer);
 io.on('connection', (socket) => {
