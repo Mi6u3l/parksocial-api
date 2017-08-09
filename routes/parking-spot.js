@@ -55,7 +55,7 @@ module.exports = function (io) {
               console.log(user.email);
               var sendNotification = require('gmail-send')({
                 user: process.env.SENDER_EMAIL,
-                pass: process.env.PASSWORD,
+                pass: process.env.SENDER_EMAIL_PASSWORD,
                 to: user.email,
                 subject: 'Park Social Notifications',
                 text: `There is new parking spot at ${notification.address} waiting for you!`,
