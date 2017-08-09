@@ -33,9 +33,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', userAuth);
 app.use('/api',  passport.authenticate('jwt', {session: false}), parkingSpots);
-app.use('/api', parkingSpots);
-
-
+app.use('/api',  passport.authenticate('jwt', {session: false}), notifications);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
