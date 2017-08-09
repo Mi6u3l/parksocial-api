@@ -35,22 +35,6 @@ server.on('listening', onListening);
 
 /*
 
-var wss = new SocketServer({ server });
-
-app.set('clients', {});
-
-wss.on('connection', (ws) => {
-  clients[ws.id] = ws;
-  console.log('Client connected: ' + ws.id);
-  ws.on('close', () => {
-    console.log('Client disconnected: ' + ws.id);
-    delete clients[ws.id];
-  });
-});
-*/
-
-//module.exports = wss;
-
 
 /**
  * Normalize a port into a number, string, or false.
