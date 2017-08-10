@@ -52,7 +52,7 @@ module.exports = function (io) {
                 res.json(err);
                 return;
               }
-              console.log(user.email);
+             
               var sendNotification = require('gmail-send')({
                 user: process.env.SENDER_EMAIL,
                 pass: process.env.SENDER_EMAIL_PASSWORD,
