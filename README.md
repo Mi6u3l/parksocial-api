@@ -5,6 +5,7 @@ In a nutshell Park Social is a Hybrid App built with Ionic2, that allows to buil
 <h2>Technology:</h2>
 <ul>
     <li>Mongo</li>
+    <li>Node</li>
     <li>Express</li>
     <li>Socket.io</li>
 </ul>
